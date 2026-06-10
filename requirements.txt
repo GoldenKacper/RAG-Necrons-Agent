@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+openai
+sqlalchemy
+psycopg2-binary
+pgvector
+tiktoken
+pandas
+
