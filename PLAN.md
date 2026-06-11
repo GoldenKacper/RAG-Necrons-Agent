@@ -64,7 +64,7 @@ Cel: działająca pętla decyzyjna (na razie z odpowiedzią wariantu A jako rusz
 do debugowania — synteza B dochodzi w Etapie 3).
 
 Zakres:
-- [ ] `loop.py`: `run_agent(question) -> AgentRunResult`
+- [x] `loop.py`: `run_agent(question) -> AgentRunResult`
   - bazą jest `run_agent` z Etapu 0 projektu agenta (wersja BEZ referencji $1/$2)
   - logowanie ReAct: Thought / Action / Observation
   - akumulator: `collected_chunks: dict[int, SearchResult]` (klucz = chunk.id,
@@ -72,9 +72,9 @@ Zakres:
   - historia zapytań: `search_queries: list[str]`
   - licznik wyszukiwań, po przekroczeniu `agent_max_searches` -> obserwacja
     "Search limit reached. Answer with what you have."
-- [ ] `AgentRunResult` (dataclass): `final_text`, `collected_chunks`, `search_queries`,
+- [x] `AgentRunResult` (dataclass): `final_text`, `collected_chunks`, `search_queries`,
   `steps_used`
-- [ ] Skrypt testowy `scripts/test_agent.py` z 3-4 pytaniami o różnej trudności
+- [x] Skrypt testowy `scripts/test_agent.py` z 3-4 pytaniami o różnej trudności
   (proste / wymagające przeformułowania / wielowątkowe)
 
 Pułapki (wystąpią — to nie pesymizm, to 8B):

@@ -8,19 +8,32 @@ from app.services.embeddings import get_embedding
 from app.schemas import SearchResult
 
 
-def search_similar_chunks(question: str, top_k: int = 5) -> list[SearchResult]:
+def search_similar_chunks(
+        question: str,
+        top_k: int = 5,
+        exclude_parents: set[str] | None = None,
+) -> list[SearchResult]:
     """
     Returns top_k most similar chunks to the question.
-    Returns a list of tuples: (ChunkModel, score).
     Uses cosine distance: the smaller the distance, the better.
+
+    exclude_parents:
+        Optional set of parent_heading values to exclude at SQL level.
+        Example: {"Contents"} removes table-of-contents chunks from retrieval
+        without deleting them from the database.
     """
     query_embedding = get_embedding(question)
 
     with session_scope() as session:
         distance = ChunkModel.embedding.cosine_distance(query_embedding).label("distance")
 
+        stmt = select(ChunkModel, distance)
+
+        if exclude_parents:
+            stmt = stmt.where(ChunkModel.parent_heading.notin_(exclude_parents))
+
         stmt = (
-            select(ChunkModel, distance)
+            stmt
             .order_by(distance)
             .limit(top_k)
         )

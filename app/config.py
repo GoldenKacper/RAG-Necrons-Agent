@@ -51,9 +51,6 @@ class Settings:
     chunks_input_path: Path = Path(
         _env("CHUNKS_INPUT_PATH", "data/processed/necrons_chunks.jsonl") or "data/processed/necrons_chunks.jsonl")
 
-    # Runtime
-    top_k: int = _env_int("TOP_K_DEFAULT", 5)
-
     # ------------------------------------------------------------------
     # Agent (Agentic RAG)
     # ------------------------------------------------------------------
@@ -253,6 +250,10 @@ class Settings:
         "Hyperphasing",
         "Translocation System",
         "Army Rules",
+    })
+
+    exclude_parents: set[str] = field(default_factory=lambda: {
+        "Contents"
     })
 
     exact_markers_from_content: set[str] = field(init=False)

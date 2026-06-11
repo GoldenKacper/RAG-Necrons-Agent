@@ -8,6 +8,7 @@ from app.schemas import AskRequest, AskResponse, HealthResponse, SearchRequest, 
 from app.services.llm import generate_answer
 from app.services.prompt import build_prompt
 from app.services.retrieval import search_similar_chunks
+from app.config import settings
 
 app = FastAPI(title="RAG Necrons", version="0.1.0")
 
@@ -26,7 +27,7 @@ def health() -> HealthResponse:
 def search(request: SearchRequest) -> SearchResponse:
     session = SessionLocal()
     try:
-        results = search_similar_chunks(request.query, request.top_k)
+        results = search_similar_chunks(request.query, request.top_k, exclude_parents=settings.exclude_parents)
         return SearchResponse(query=request.query, results=results)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -38,7 +39,7 @@ def search(request: SearchRequest) -> SearchResponse:
 def ask(request: AskRequest) -> AskResponse:
     session = SessionLocal()
     try:
-        results = search_similar_chunks(request.query, request.top_k)
+        results = search_similar_chunks(request.query, request.top_k, exclude_parents=settings.exclude_parents)
 
         if not results:
             raise HTTPException(status_code=404, detail="No chunks found")

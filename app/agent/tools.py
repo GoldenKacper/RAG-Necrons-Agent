@@ -67,7 +67,7 @@ def search_knowledge_base(query: str, top_k: int | None = None) -> tuple[str, li
     if top_k is None:
         top_k = settings.agent_search_top_k
 
-    chunks_found = search_similar_chunks(query, top_k)
+    chunks_found = search_similar_chunks(query, top_k, exclude_parents=settings.exclude_parents)
     observation_text = format_observation(chunks_found)
 
     return observation_text, chunks_found

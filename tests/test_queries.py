@@ -1,12 +1,11 @@
 from app.services.retrieval import search_similar_chunks
 from app.services.prompt import build_prompt
 from app.services.llm import generate_answer
+from app.config import settings
 
 question = "How does Reanimation Protocols work?"
 
-
-
-results = search_similar_chunks(question, top_k=5)
+results = search_similar_chunks(question, top_k=5, exclude_parents=settings.exclude_parents)
 
 # print("\nStart Q1:\n")
 # for i, result in enumerate(results, start=1):
