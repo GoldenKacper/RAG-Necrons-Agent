@@ -3,7 +3,10 @@ from app.services.prompt import build_prompt
 from app.services.llm import generate_answer
 
 question = "How does Reanimation Protocols work?"
-results = search_similar_chunks(question, top_k=7)
+
+
+
+results = search_similar_chunks(question, top_k=5)
 
 # print("\nStart Q1:\n")
 # for i, result in enumerate(results, start=1):

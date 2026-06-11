@@ -18,7 +18,7 @@ def generate_answer(prompt: str) -> str:
     response = client.chat.completions.create(
         model=settings.chat_model,
         messages=[
-            {"role": "system", "content": settings.system_prompt},
+            {"role": "system", "content": settings.agent_system_prompt},
             {"role": "user", "content": prompt},
         ],
         temperature=0.2,

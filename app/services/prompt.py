@@ -9,7 +9,7 @@ def build_prompt(question: str, chunks: list[SearchResult]) -> str:
     context = format_context(chunks)
     return (
         f"SYSTEM:\n"
-        f"{settings.system_prompt}\n\n"
+        f"{settings.agent_system_prompt}\n\n"
         f"CONTEXT:\n"
         f"{context}\n\n"
         f"QUESTION:\n"
